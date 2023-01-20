@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dapr-ts
+  labels:
+    app: dapr-ts
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dapr-ts
+  template:
+    metadata:
+      labels:
+        app: dapr-ts
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/id: "dapr-ts"
+        dapr.io/port: "3003"
+        dapr.io/log-level: "debug"
+        dapr.io/config: "tracing"
+    spec:
+      containers:
+      - name: dapr-ts
+        image: registry.cn-hangzhou.aliyuncs.com/jkhe/dapr-hello-typescript:latest
+        ports:
+        - containerPort: 3000
+        imagePullPolicy: Always
